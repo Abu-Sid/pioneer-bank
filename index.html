@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pioneer Bank</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Welcome To Pioneer Bank</h1>
+    </header>
+    <main>
+      <section id="login-section">
+        <div class="login-area">
+          <h4 style="font-size: larger">Login</h4>
+          <input type="text" value="" placeholder="Enter Email" /> <br />
+          <input type="password" placeholder="Enter Password" /><br />
+          <button id="submit-btn">Submit</button>
+        </div>
+      </section>
+      <section id="transaction-section">
+        <div class="transaction-area">
+          <div class="status deposit">
+            <h1>Deposit</h1>
+            <h1 class="amount">$ <span id="current-deposit">00</span></h1>
+          </div>
+          <div class="status withdraw">
+            <h1>Withdraw</h1>
+            <h1 class="amount">$ <span id="current-withdraw">00</span></h1>
+          </div>
+          <div class="status balance">
+            <h1>Balance</h1>
+            <h1 class="amount">$ <span id="current-balance">1240</span></h1>
+          </div>
+        </div>
+        <div class="amount-input-area">
+          <div class="amount-input">
+            <h4>Deposit</h4>
+            <input
+              type="text"
+              id="deposit-amount"
+              placeholder="Enter your amount"
+            />
+            <br /><br />
+            <button id="deposit-btn">Deposit</button>
+          </div>
+          <div>
+            <h4>Withdraw</h4>
+            <input
+              type="text"
+              id="withdraw-amount"
+              placeholder="Enter your amount"
+            />
+            <br /><br />
+            <button id="withdraw-btn">Withdraw</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      //Login button Event Handler
+      const loginBtn = document.getElementById("submit-btn");
+      loginBtn.addEventListener("click", function () {
+        const loginArea = document.getElementById("login-section");
+        loginArea.style.display = "none";
+        const transactionArea = document.getElementById("transaction-section");
+        transactionArea.style.display = "block";
+      });
+      //Deposit button Event Handler
+      const depositBtn = document.getElementById("deposit-btn");
+      depositBtn.addEventListener("click", function () {
+        const depositAmount = document.getElementById("deposit-amount").value;
+        const depositNumber = parseFloat(depositAmount);
+        updateAmount("current-deposit", depositNumber);
+        document.getElementById("deposit-amount").value = "";
+
+        //Balance Event Handler for deposit
+        updateAmount("current-balance", depositNumber);
+      });
+      //Withdraw button Event Handler
+      const withdrawBtn = document.getElementById("withdraw-btn");
+      withdrawBtn.addEventListener("click", function () {
+        const withdrawAmount = document.getElementById("withdraw-amount").value;
+        const withdrawNumber = parseFloat(withdrawAmount);
+        updateAmount("current-withdraw", withdrawNumber);
+        document.getElementById("withdraw-amount").value = "";
+
+        //Balance Event Handler for withdraw
+        updateAmount("current-balance", -1 * withdrawNumber);
+      });
+      function updateAmount(id, depositNumber) {
+        const currentAmount = document.getElementById(id).innerText;
+        const currentAmountNumber = parseFloat(currentAmount);
+        const totalAmount = depositNumber + currentAmountNumber;
+        document.getElementById(id).innerText = totalAmount;
+      }
+    </script>
+  </body>
+</html>
